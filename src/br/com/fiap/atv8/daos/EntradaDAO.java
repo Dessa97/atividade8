@@ -28,14 +28,13 @@ public class EntradaDAO extends OperacoesDAO {
 			stmt = conexao.prepareStatement("SELECT * FROM T_SIP_ENTRADA WHERE ID_CONTA = ?");
 			stmt.setInt(1, idConta);
 			rs = stmt.executeQuery();
+			Conta conta = contaDAO.buscar(idConta);
 
 			while (rs.next()) {
 				int idEntrada = rs.getInt("ID_ENTRADA");
 				String descricao = rs.getString("DS_ENTRADA");
 				double valor = rs.getDouble("VL_ENTRADA");
 				LocalDate data = converteDateParaLocalDate(rs.getDate("DT_ENTRADA"));
-
-				Conta conta = contaDAO.buscar(idConta);
 
 				// Cria um objeto Entrada para armazenar as informações vindas da Tabela
 				Entrada entrada = new Entrada(idEntrada, conta, descricao, valor, data);
