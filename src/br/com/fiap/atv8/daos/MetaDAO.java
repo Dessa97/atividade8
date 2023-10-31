@@ -27,15 +27,13 @@ public class MetaDAO extends OperacoesDAO{
 	        stmt = conexao.prepareStatement("SELECT * FROM T_SIP_META WHERE ID_CONTA = ?");
 	        stmt.setInt(1, idConta);
 	        rs = stmt.executeQuery();
-
+			Conta conta = contaDAO.buscar(idConta);
 	        while (rs.next()) {
 	            int idMeta = rs.getInt("ID_META");
 	            String descricao = rs.getString("DS_META");
 	            double valor = rs.getDouble("VL_META");
 	            LocalDate data = converteDateParaLocalDate(rs.getDate("DT_META"));
-	            
-	            Conta conta = contaDAO.buscar(idConta);
-	            
+
 	            //Cria um objeto Meta para armazenar as informações vindas da Tabela
 	            Meta meta = new Meta(idMeta, conta, descricao, valor, data);
 	            lista.add(meta);

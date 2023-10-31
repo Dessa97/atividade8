@@ -28,15 +28,13 @@ public class SaidaDAO extends OperacoesDAO{
 	        stmt = conexao.prepareStatement("SELECT * FROM T_SIP_SAIDA WHERE ID_CONTA = ?");
 	        stmt.setInt(1, idConta);
 	        rs = stmt.executeQuery();
-
+			Conta conta = contaDAO.buscar(idConta);
 	        while (rs.next()) {
 	            int idSaida = rs.getInt("ID_SAIDA");
 	            String descricao = rs.getString("DS_SAIDA");
 	            double valor = rs.getDouble("VL_SAIDA");
 	            LocalDate data = converteDateParaLocalDate(rs.getDate("DT_SAIDA"));
-	            
-	            Conta conta = contaDAO.buscar(idConta);
-	            
+
 	            //Cria um objeto Meta para armazenar as informações vindas da Tabela
 	            Saida saida = new Saida(idSaida, conta, descricao, valor, data);
 	            lista.add(saida);

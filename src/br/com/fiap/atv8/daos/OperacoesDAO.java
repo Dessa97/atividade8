@@ -85,7 +85,6 @@ public abstract class OperacoesDAO {
 	//SaidaDAO e EntradaDAO são filhas de OperacoesDAO elas podem acessar esse método
 	//já que ele é protected.
 	protected LocalDate converteDateParaLocalDate(Date data) {
-		ZoneId brazilZone = ZoneId.of("America/Sao_Paulo");
-        return data.toInstant().atZone(brazilZone).toLocalDate();
+        return data.toLocalDate();
 	}
 }
